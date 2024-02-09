@@ -1,6 +1,6 @@
 #include <verilated.h>
 #include <iostream>
-#include <Vt2b_riscv_cpu.h>
+#include <Vtop.h>
 #include "verilated_vcd_c.h"
 
 using namespace std;
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
     contextp->traceEverOn(true);
     contextp->commandArgs(argc, argv);
-    const std::unique_ptr<Vt2b_riscv_cpu> top{new Vt2b_riscv_cpu{contextp.get(), "t2b_riscv_cpu"}};
+    const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "top"}};
 
     top->clk = 0;
     top->reset = 0;
@@ -41,9 +41,8 @@ int main(int argc, char **argv)
             break;
         }
         tfp->dump(contextp->time());
-        if((top->DataAdr == 0x2000008) && (top->clk == 1) && (top->MemWrite == 1)){
-            cout <<  std::dec << contextp->time();
-            cout << ": PC at: " << std::hex << top->ProgramCounter << " DataAdr: " << std::hex << top->DataAdr << " Data: " << top->WriteData << endl;
+        if((top->DataAdr == 0x2000004) && (top->clk == 1) && (top->MemWrite == 1)){
+            cout << "DataAdr: " << hex << top->DataAdr << " WriteData: " << hex << top->WriteData << endl;
         }
     }
 

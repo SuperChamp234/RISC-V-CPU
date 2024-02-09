@@ -4,6 +4,8 @@
 *.o
 %.elf
 %.bin
+build/
+obj_dir/
 
 #verilog build files
 *.vcd

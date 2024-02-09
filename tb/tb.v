@@ -35,12 +35,12 @@ integer max_cycles = 10000;
 always begin
     #5 clk <= ~clk;
     cycles = cycles + 1;
-    //when DataAdr is 0x02000008, log the value of WriteData
-    if (DataAdr > 32'h02000010 && MemWrite == 1 && clk == 1) begin
-        $display("WriteData = %d", WriteData);
-    end
-    //end simulation when DataAdr is  0x0200000c and WriteData is 1
-    if (DataAdr == 32'h0200000c && WriteData == 55 && clk == 1) begin
+    // An example of how to log the value of a signal
+    // if (DataAdr > 32'h02000010 && MemWrite == 1 && clk == 1) begin
+    //     $display("WriteData = %d", WriteData);
+    // end
+    //end simulation when DataAdr is  0x02000004 is written with 5
+    if (DataAdr == 32'h02000004 && WriteData == 5 && clk == 1) begin
         $display("Simulation ended successfully");
         $finish;
     end
